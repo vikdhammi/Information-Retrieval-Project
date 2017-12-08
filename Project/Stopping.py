@@ -8,9 +8,10 @@ import BM25
 import smooth_query_likelihood
 import tf_idf
 
-unigram = {}
+unigram_index = {}
 common_words = {}
-def stopping():
+def stopping(unigram):
+    unigram_index = unigram
     given_files = 'Given_Files'
     os.chdir(given_files)
 
@@ -18,8 +19,9 @@ def stopping():
         common_words.append(words.strip('\n'))
 
     for each in common_words:
-        if each in unigram:
-            del unigram[each]
+        if each in unigram_index:
+            del unigram_index[each]
 
-    for k,v in unigram.items():
+    for k,v in unigram_index.items():
         print(k,v)
+    return unigram_index

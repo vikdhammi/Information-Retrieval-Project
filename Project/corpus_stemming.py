@@ -21,7 +21,11 @@ def stem_corpus():
         text = text.replace('\n',' ')
         text = re.split(r'#\s[0-9]*',text)
         for words in text[1:]:
+            if (' am ' or ' pm ') in words:
+                words = words.split(' pm ' or ' am ')[0]
+                words = words + ' pm ' + ' am '
             with open('Stemmed_Corpus'+'/CACM-'+ str(count)+'.txt','w+') as f:
                 f.write(words)
                 f.close()
                 count +=1
+
