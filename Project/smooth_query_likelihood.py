@@ -14,6 +14,8 @@ class Smoothing:
         invertIndex = {}
         totalWords = {}
         docContent = {}
+        queryTermDict = {}
+        queryLikelihood = {}
         totalDocNo = 1000
         tokenSum = 0
         alpha_d = 0.35
@@ -52,9 +54,8 @@ class Smoothing:
             print(k, v)
 
         os.chdir("..")
-      
-        queryTermDict = {}
-        queryLikelihood = {}
+
+        
 
         for s in totalWords.values():
             tokenSum += s
