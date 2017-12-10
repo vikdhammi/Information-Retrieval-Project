@@ -1,7 +1,7 @@
-import json
 import operator
 import os
 from collections import defaultdict, OrderedDict
+from functools import partial
 
 from Phase1.Task1 import tokenization
 from Phase1.Task1.BM25 import bm25_scoring
@@ -15,15 +15,17 @@ class PseudoRelevance(object):
         self.n = n
 
     def search(self, search_term):
-        results = self.ranker(search_term, max_hits=self.n)
+        results = self.ranker(search_term)
         ii_list = []
-        for file_path in results:
+        for index, file_path in enumerate(results):
             print(file_path)
             ii_list.append(
                 self._get_inverted_index(os.path.join(self.corpus_path, file_path) + '.txt')[0]
             )
 
-        print("*"*10)
+            if index == self.n:
+                break
+
         common_words = self._get_common_words(ii_list, self.n)
         new_words = [w for w in common_words.keys()[:self.n]]
         new_search_term = search_term + " ".join(new_words)
@@ -51,12 +53,11 @@ class PseudoRelevance(object):
 
 if __name__ == '__main__':
     unigram_file_path = "../hw04/unigram_index.json"
-    unigram_data = json.load(open(unigram_file_path, 'r'))
+    doc_count_file_path = ""
     corpus_path = '../hw03/corpus'
 
     # bm25_ranker = BM25(unigram_data, b=0.75, k1=1.2, k2=100)
-    bm25_ranker = bm25_scoring
+    bm25_ranker = partial(bm25_scoring, unigram_file_path, doc_count_file_path)
 
     prf = PseudoRelevance(corpus_path, bm25_ranker, 10)
     prf.search("hurricane season")
-
