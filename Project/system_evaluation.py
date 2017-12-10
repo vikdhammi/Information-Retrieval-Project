@@ -1,6 +1,7 @@
 import os
 from operator import itemgetter
 from __future__ import division
+import precision_at_k
 import mean_reciprocal_rank
 
 def main():
@@ -12,6 +13,8 @@ def main():
     model_docs = find_ranked_model_docs()
     mean_reciprocal_rank.find_mean_reciprocal_rank(file, relevant, model_docs)
     find_precision_recall(file, relevant, model_docs)
+    precision_at_k.find_precision_at_k(file, relevant, model_docs)
+
 
 def find_ranked_model_docs():
     model_docs = {}
@@ -57,7 +60,7 @@ def find_precision_recall(file, relevant, model_docs):
         if str(each) not in relevant:
             precision[str(each)] = []
             recall[str(each)] = []
-            continue;
+            continue
         precision[str(each)] = []
         recall[str(each)] = []
         r_docs = relevant[str(each)]
@@ -98,6 +101,6 @@ def find_precision_recall(file, relevant, model_docs):
         # output avg_precison req?
 
         avg_precision_queries = avg_precision_queries + avg_precision
-    mavgprc = avg_precision_queries / len(model_docs)
+    mean_avg_prc = avg_precision_queries / len(model_docs)
 
     pr_file.close()
