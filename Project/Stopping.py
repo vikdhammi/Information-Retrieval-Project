@@ -1,12 +1,4 @@
-
 import os
-import corpus_generator
-import corpus_statistics
-import tokenization
-import util
-import BM25
-import smooth_query_likelihood
-import tf_idf
 
 unigram_index = {}
 common_words = {}

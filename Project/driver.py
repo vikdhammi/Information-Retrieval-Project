@@ -1,13 +1,7 @@
-import os
-import corpus_generator
-import corpus_statistics
-import tokenization
-import corpus_stemming
-import util
-import BM25
-import smooth_query_likelihood
-import tf_idf
 import Stopping
+import corpus_generator
+import corpus_stemming
+from Phase1.Task1 import tokenization
 
 unigram_index = {}
 query_list = {}
