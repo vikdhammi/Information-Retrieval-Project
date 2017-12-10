@@ -48,7 +48,7 @@ class PseudoRelevance(object):
     @staticmethod
     def _get_inverted_index(path):
         ii, _ = tokenization.create_inverted_list(path)
-        return ii.gen_ngram_indexes(ns=(1,))
+        return ii
 
 
 if __name__ == '__main__':
